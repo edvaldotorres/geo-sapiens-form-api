@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\FormController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::prefix('v1/forms/{form_id}')->group(function () {
+    Route::post('fillings', [FormController::class, 'store'])
+        ->name('forms.fillings.store');
+    Route::get('fillings', [FormController::class, 'show'])
+        ->name('forms.fillings.show');
 });
